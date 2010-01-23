@@ -1,6 +1,6 @@
-require 'api'
+require 'commands/pick'
 
-describe Pivotal::Api do
+describe Pick do
   it "should work" do
     true
   end
