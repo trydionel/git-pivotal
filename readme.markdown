@@ -12,13 +12,13 @@ This selects the top-most available feature from your Pivotal Tracker, and offer
     1 git-pick:master % git pick
     Collecting latest stories from Pivotal Tracker...
     Story: Test git pivotal
-    URL:   http://www.pivotaltracker.com/story/show/2265959
+    URL:   http://www.pivotaltracker.com/story/show/1234567
     Accept this story? (Yn): y
-    Suggested branch: feature-2265959
+    Suggested branch: feature-1234567
     Accept this name? (Yn): y
-    Creating feature-2265959 branch...
+    Creating feature-1234567 branch...
     Updating story status in Pivotal Tracker...
-    2 git-pick:feature-2265959 %
+    2 git-pick:feature-1234567 %
     
 ##Installation
 Some long process to actually install it.  Working on that.
