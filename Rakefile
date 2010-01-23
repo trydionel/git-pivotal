@@ -1,4 +1,6 @@
+require 'rubygems'
 require 'rake'
+require 'spec/rake/spectask'
 
 $LOAD_PATH.unshift('lib')
 
@@ -23,4 +25,8 @@ begin
   Jeweler::GemcutterTasks.new
 rescue
   puts "Jeweler not available. Install it with: gem install jeweler"
+end
+
+Spec::Rake::SpecTask.new do |t|
+  t.warning = true
 end
