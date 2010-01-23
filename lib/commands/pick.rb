@@ -56,7 +56,7 @@ private
     end
     
     puts "Retrieving latest stories from Pivotal Tracker..."
-    @api = PivotalApi.new(@options)
+    @api = Pivotal::Api.new(@options)
   end
   
   def agrees?(selection)
