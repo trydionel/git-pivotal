@@ -1,6 +1,6 @@
 # =PivotalStory
 # A naive way to allow easy access to pivotal tracker story details
-class PivotalStory
+class Pivotal::Story
   def initialize(story, project)
     @story, @project = story, project
   end

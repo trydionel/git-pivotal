@@ -1,7 +1,4 @@
-#!/usr/bin/env ruby
-
 require 'optparse'
-require 'pivotal_api'
 
 class Pick
   
@@ -115,8 +112,4 @@ private
     story.start!
   end
 
-end
-
-if __FILE__ == $0
-  Pick.new.run
 end

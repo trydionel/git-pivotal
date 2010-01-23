@@ -2,9 +2,7 @@ require 'rubygems'
 require 'nokogiri'
 require 'rest_client'
 
-require 'pivotal_story'
-
-class PivotalApi
+class Pivotal::Api
   
   def initialize(options = {})
     url = "http://www.pivotaltracker.com/services/v2/projects/#{options[:project]}"
@@ -12,7 +10,7 @@ class PivotalApi
   end
   
   def stories(options = {})
-    @stories ||= parsed_stories(options).map { |story| PivotalStory.new story, @project }
+    @stories ||= parsed_stories(options).map { |story| Pivotal::Story.new story, @project }
   end
   
 private
