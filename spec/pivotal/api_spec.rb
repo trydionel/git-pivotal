@@ -1,22 +1,18 @@
 require 'spec_helper'
 
 describe Pivotal::Api do
+  
   before(:each) do
-    @api = Pivotal::Api.new :api_token => 1, :project_id => 1
+    @api = pivotal_api
   end
   
-  it "should expose a Pivotal Tracker project" do
-    @api.project.should be_a(RestClient::Resource)
+  it "should connect to Pivotal Tracker's API" do
+    @api.resource.url.should == "http://www.pivotaltracker.com/services/v3"
   end
   
-  it "should expose a collection of Pivotal Tracker stories" do
-    @api.stubs(:raw_stories).returns("<story></story>")
-    @api.stories.should be_a(Array)
-    @api.stories.first.should be_a(Pivotal::Story)
+  it "should have a collection of projects" do
+    @api.projects.should be_a(Pivotal::Collection)
+    @api.projects.component_class.should == Pivotal::Project
   end
-  
-  it "should collect only unstarted feature stories" do
-    pending
-  end
-  
+
 end

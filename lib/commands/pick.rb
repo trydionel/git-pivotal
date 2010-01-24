@@ -64,7 +64,8 @@ private
   end
   
   def find_story
-    story = @api.stories.first
+    project = @api.projects.find(:id => @options[:project])
+    story = project.stories.first
     
     unless story
       puts "No stories available!"

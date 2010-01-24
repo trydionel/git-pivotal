@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'lib/pivotal'
 require 'lib/commands/pick'
-require 'lib/pivotal/api'
-require 'lib/pivotal/story'
 
 if __FILE__ == $0
   Pick.new.run
