@@ -1,3 +1,4 @@
+require File.join(File.dirname(__FILE__),'pivotal', 'collection')
 require File.join(File.dirname(__FILE__),'pivotal', 'associations')
 
 require File.join(File.dirname(__FILE__),'pivotal','base')
