@@ -8,7 +8,7 @@ describe Pivotal::Project do
   end
   
   it "should be connected to the project resource" do
-    @project.resource.url.should == "http://www.pivotaltracker.com/services/v3/projects/1"
+    @project.resource.url.should == "https://www.pivotaltracker.com/services/v3/projects/1"
   end
   
   it "should have a collection of stories" do

@@ -6,7 +6,7 @@ module Pivotal
     
     def initialize(options = {})
       super(options)
-      @api_url = "http://www.pivotaltracker.com/services/v3"
+      @api_url = "https://www.pivotaltracker.com/services/v3"
     end
   
     def resource

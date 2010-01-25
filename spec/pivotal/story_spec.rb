@@ -9,7 +9,7 @@ describe Pivotal::Story do
   end
   
   it "should be connected to the story resource" do
-    @story.resource.url.should == "http://www.pivotaltracker.com/services/v3/projects/1/stories/1"
+    @story.resource.url.should == "https://www.pivotaltracker.com/services/v3/projects/1/stories/1"
   end
   
 end

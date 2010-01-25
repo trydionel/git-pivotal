@@ -7,7 +7,7 @@ describe Pivotal::Api do
   end
   
   it "should connect to Pivotal Tracker's API" do
-    @api.resource.url.should == "http://www.pivotaltracker.com/services/v3"
+    @api.resource.url.should == "https://www.pivotaltracker.com/services/v3"
   end
   
   it "should have a collection of projects" do
