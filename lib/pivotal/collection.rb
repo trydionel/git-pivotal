@@ -13,13 +13,13 @@ module Pivotal
     # so if we find an :id parameter, accept it and
     # ignore all other params.
     def find(*args)
-      conditions = args.last.is_a?(Hash) ? args.pop : {}
+      params = args.last.is_a?(Hash) ? args.pop : {}
       finder = args.first
       
-      return item(conditions[:id]) if conditions[:id]
+      return item(params[:id]) if params[:id]
       return item(finder) if finder.is_a?(Numeric)
       
-      all(conditions)
+      all(params)
     end
     
     def first
@@ -32,11 +32,20 @@ module Pivotal
       component_class.new :resource => resource[id]
     end
   
-    def filters(conditions = {})
-      return "" if conditions.empty?
+    def filters(params = {})
+      return "" if params.empty?
+
+      param_url = []
+      if params[:conditions]
+        condition_string = params[:conditions].map { |k,v| "#{k}:#{v}" }.join " "
+        param_url << "filter=#{CGI::escape(condition_string)}"
+      end
       
-      condition_string = conditions.map { |k,v| "#{k}=#{v}" }.join " "
-      "?filter='#{CGI::escape(condition_string)}'"
+      if params[:limit]
+        param_url << "limit=#{params[:limit]}&offset=#{params[:offset]||0}"
+      end
+      
+      "?" + param_url.join("&")
     end
     
     def build_collection_from_xml(xml = "")
@@ -46,8 +55,8 @@ module Pivotal
       end
     end
     
-    def all(conditions = {})
-      build_collection_from_xml resource[filters(conditions)].get
+    def all(params = {})
+      build_collection_from_xml resource[filters(params)].get
     end
     
   end
