@@ -20,6 +20,7 @@ begin
     gemspec.add_dependency "rest-client"
     
     gemspec.add_development_dependency "rspec"
+    gemspec.add_development_dependency "mocha"
   end
   
   Jeweler::GemcutterTasks.new
