@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{git-pivotal}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Tucker"]
@@ -18,10 +18,12 @@ Gem::Specification.new do |s|
     "LICENSE"
   ]
   s.files = [
-    "LICENSE",
+    ".gitignore",
+     "LICENSE",
      "Rakefile",
      "VERSION",
      "bin/git-pick",
+     "git-pivotal.gemspec",
      "lib/commands/pick.rb",
      "lib/pivotal.rb",
      "lib/pivotal/api.rb",
