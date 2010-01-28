@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-require 'lib/pivotal'
-require 'lib/commands/pick'
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
-if __FILE__ == $0
-  Pick.new.run
-end
+require 'pivotal'
+require 'commands/pick'
+
+exit Pick.new.run(*ARGV)

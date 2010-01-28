@@ -4,10 +4,10 @@ class Pick
   
   attr_accessor :api
   
-  def initialize
+  def initialize(*args)
     @options = {}
     parse_gitconfig
-    parse_argv    
+    parse_argv(*args)
   end
   
   def run
@@ -38,7 +38,7 @@ private
     @options[:project_id] = id if id
   end
   
-  def parse_argv
+  def parse_argv(*args)
     OptionParser.new do |opts|
       opts.banner = "Usage: git pick [options]"
       opts.on("-k", "--api-key=", "Pivotal Tracker API key") { |k| @options[:api_token] = k }
@@ -46,7 +46,7 @@ private
       opts.on("-q", "--quiet", "Quiet, no-interaction mode") { |q| @options[:quiet] = q }
       opts.on("-v", "--[no-]verbose", "Run verbosely") { |v| @options[:verbose] = v }
       opts.on_tail("-h", "--help", "This usage guide") { puts opts; exit 0 }
-    end.parse!
+    end.parse!(args)
   end
   
   def connect_to_pivotal
