@@ -33,8 +33,12 @@ module Pivotal
     end
     
     class << self
+      def name_as_xml_attribute
+        self.name.gsub(/.+\:\:/, '').downcase
+      end
+      
       def xpath
-        '//' + self.name.gsub(/.+\:\:/, '').downcase
+        '//' + self.name_as_xml_attribute
       end
     end
     
