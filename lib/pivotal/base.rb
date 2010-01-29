@@ -29,7 +29,7 @@ module Pivotal
     end
     
     def update_attributes(options = {})
-      resource.put generate_xml(options)
+      @xml = resource.put generate_xml(options)
     end
     
     class << self
