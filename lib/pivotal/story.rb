@@ -1,8 +1,8 @@
 module Pivotal
   class Story < Base
     
-    def start!
-      resource.put "<story><current_state>started</current_state></story>"
+    def start!(options = {})
+      update_attributes(options.merge(:current_state => :started))
     end
   
   end
