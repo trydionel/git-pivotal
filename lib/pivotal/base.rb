@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'rest_client'
 require 'nokogiri'
+require 'builder'
 
 module Pivotal
   class Base
@@ -27,9 +28,32 @@ module Pivotal
       parsed_resource.css(method.to_s).text
     end
     
+    def update_attributes(options = {})
+      resource.put generate_xml(options)
+    end
+    
     class << self
       def xpath
         '//' + self.name.gsub(/.+\:\:/, '').downcase
+      end
+    end
+    
+  private
+  
+    def generate_xml(options = {})
+      builder = Builder::XmlMarkup.new
+      allowed_keys(options).each do |key, value|
+        builder.key(value.to_s)
+      end
+      
+      builder
+    end
+    
+    def allowed_keys(options = {})
+      options.reject do |key, _|
+        !%w[id story_type url estimate current_state
+           description name requested_by owned_by
+           created_at accepted_at labels].include? key.to_s
       end
     end
     
