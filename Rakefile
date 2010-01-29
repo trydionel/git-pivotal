@@ -30,4 +30,6 @@ end
 
 Spec::Rake::SpecTask.new do |t|
   t.warning = true
+  t.rcov = true
+  t.rcov_opts = ['--exclude', 'gems']
 end
