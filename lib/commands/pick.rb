@@ -12,10 +12,12 @@ class Pick
   
   def run
     connect_to_pivotal
-    
+
     story = find_story
     build_feature_branch story
     start_story story
+    
+    return 0
   end
   
 private
