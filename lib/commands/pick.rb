@@ -2,7 +2,7 @@ require 'optparse'
 
 class Pick
   
-  attr_accessor :api
+  attr_accessor :options
   
   def initialize(*args)
     @options = {}
@@ -10,12 +10,40 @@ class Pick
     parse_argv(*args)
   end
   
-  def run
-    connect_to_pivotal
+  def run!
+    unless options[:api_token] && options[:project_id]
+      puts "Pivotal Tracker API Token and Project ID are required"
+      return 1
+    end
+    
+    puts "Retrieving latest stories from Pivotal Tracker..."
+    api = Pivotal::Api.new(:api_token => options[:api_token])
 
-    story = find_story
-    build_feature_branch story
-    start_story story
+    project = api.projects.find(:id => options[:project_id])
+    story = project.stories.find(:conditions => { :story_type => :feature, :current_state => :unstarted }, :limit => 1).first
+    
+    unless story
+      puts "No stories available!"
+      return 0
+    end
+    
+    puts "Story: #{story.name}"
+    puts "URL:   #{story.url}"
+
+    suffix = "feature"
+    unless options[:quiet]
+      print "Enter branch name (will be prepended by #{story.id}) [feature]: "
+      suffix = gets.chomp
+      
+      suffix = "feature" if suffix == ""
+    end
+
+    puts "Creating branch..."
+    branch = "#{story.id}-#{suffix}"
+    create_branch branch
+    
+    puts "Updating story status in Pivotal Tracker..."
+    story.start!(:owned_by => options[:full_name])
     
     return 0
   end
@@ -23,12 +51,12 @@ class Pick
 private
   
   def sys(cmd)
-    puts cmd if @options[:verbose]
+    puts cmd if options[:verbose]
     system cmd
   end
   
   def get(cmd)
-    puts cmd if @options[:verbose]
+    puts cmd if options[:verbose]
     `#{cmd}`
   end
   
@@ -37,54 +65,25 @@ private
     id    = get("git config --get pivotal.project-id").strip
     name  = get("git config --get pivotal.full-name").strip
     
-    @options[:api_token] = token if token
-    @options[:project_id] = id if id
-    @options[:full_name] = name if name
+    options[:api_token] = token if token
+    options[:project_id] = id if id
+    options[:full_name] = name if name
   end
   
   def parse_argv(*args)
     OptionParser.new do |opts|
       opts.banner = "Usage: git pick [options]"
-      opts.on("-k", "--api-key=", "Pivotal Tracker API key") { |k| @options[:api_token] = k }
-      opts.on("-p", "--project-id=", "Pivotal Trakcer project id") { |p| @options[:project_id] = p }
-      opts.on("-n", "--full-name=", "Pivotal Trakcer full name") { |n| @options[:full_name] = n }
-      opts.on("-q", "--quiet", "Quiet, no-interaction mode") { |q| @options[:quiet] = q }
-      opts.on("-v", "--[no-]verbose", "Run verbosely") { |v| @options[:verbose] = v }
+      opts.on("-k", "--api-key=", "Pivotal Tracker API key") { |k| options[:api_token] = k }
+      opts.on("-p", "--project-id=", "Pivotal Trakcer project id") { |p| options[:project_id] = p }
+      opts.on("-n", "--full-name=", "Pivotal Trakcer full name") { |n| options[:full_name] = n }
+      opts.on("-q", "--quiet", "Quiet, no-interaction mode") { |q| options[:quiet] = q }
+      opts.on("-v", "--[no-]verbose", "Run verbosely") { |v| options[:verbose] = v }
       opts.on_tail("-h", "--help", "This usage guide") { puts opts; exit 0 }
     end.parse!(args)
   end
   
-  def connect_to_pivotal
-    unless @options[:api_token] && @options[:project_id]
-      puts "Pivotal Tracker API Token and Project ID are required"
-      exit 0
-    end
-    
-    puts "Retrieving latest stories from Pivotal Tracker..."
-    @api = Pivotal::Api.new(:api_token => @options[:api_token])
-  end
-  
   def agrees?(selection)
     selection =~ /y/i || selection == ""
-  end
-  
-  def find_story
-    project = @api.projects.find(:id => @options[:project_id])
-    story = project.stories.find(:conditions => { :story_type => :feature, :current_state => :unstarted }, :limit => 1).first
-    
-    unless story
-      puts "No stories available!"
-      exit 0
-    end
-    
-    puts "Story: #{story.name}"
-    puts "URL:   #{story.url}"
-    print "Accept this story? (Yn): "
-    selection = gets.chomp
-        
-    exit 0 if !agrees?(selection)
-    
-    story
   end
   
   def create_branch(branch)
@@ -96,26 +95,6 @@ private
 
   def branch_exists?(branch)
     !get("git branch").match(branch).nil?
-  end
-
-  def build_feature_branch(story)
-    branch = "feature-#{story.id}"
-
-    puts "Suggested branch name: #{branch}"
-    print "Accept this name? (Yn): "
-    selection = gets.chomp
-
-    unless agrees?(selection)
-      print "Enter new name (will be prepended by #{story.id}): "
-      branch = "#{story.id}-" + gets.chomp
-    end
-    
-    create_branch branch
-  end
-  
-  def start_story(story)
-    puts "Updating story status in Pivotal Tracker..."
-    story.start!(:owned_by => @options[:full_name])
   end
 
 end
