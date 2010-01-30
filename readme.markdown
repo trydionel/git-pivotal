@@ -43,5 +43,5 @@ This is <del>some seriously</del> alpha software.  Several things on the ol' tod
 * <del>Create a general Pivotal::Base#update_attributes method</del>
 * <del>`git pick` doesn't update the story to indicate who claimed it</del>
 * Add command to close/finish currently 'picked' feature
-* Reduce verbosity of `git pick`
+* <del>Reduce verbosity of `git pick`</del>
 * More that I can't recall at the moment

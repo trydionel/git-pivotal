@@ -1,3 +1,6 @@
+v 0.1.3
+- Fixed bug preventing command line args from being properly interpretted
+
 v 0.1.2
 - Fixed bug introduced in v 0.1.1 which prevented git pick from completing
 
