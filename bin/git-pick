@@ -5,4 +5,4 @@ $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'pivotal'
 require 'commands/pick'
 
-exit Pick.new.run(*ARGV)
+exit Pick.new(*ARGV).run!
