@@ -13,12 +13,10 @@ This selects the top-most available feature from your Pivotal Tracker, and offer
     Collecting latest stories from Pivotal Tracker...
     Story: Test git pivotal
     URL:   http://www.pivotaltracker.com/story/show/1234567
-    Accept this story? (Yn): y
-    Suggested branch: feature-1234567
-    Accept this name? (Yn): y
-    Creating feature-1234567 branch...
-    Updating story status in Pivotal Tracker...
-    2 git-pick:feature-1234567 %
+    Enter branch name (will be prepended by 1234567) [feature]: testing
+    Creating branch...
+    Creating 1234567-testing branch...
+    2 git-pick:1234567-testing %
     
 ##Installation
 To install git-pivotal, simply run
