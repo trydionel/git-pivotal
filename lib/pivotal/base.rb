@@ -30,6 +30,7 @@ module Pivotal
     
     def update_attributes(options = {})
       @xml = resource.put generate_xml(options)
+      return self
     end
     
     class << self
@@ -46,11 +47,13 @@ module Pivotal
   
     def generate_xml(options = {})
       builder = Builder::XmlMarkup.new
-      allowed_keys(options).each do |key, value|
-        builder.key(value.to_s)
+      builder.__send__ self.class.name_as_xml_attribute do
+        allowed_keys(options).each do |key, value|
+          builder.__send__(key, value.to_s)
+        end
       end
       
-      builder
+      builder.target!
     end
     
     def allowed_keys(options = {})

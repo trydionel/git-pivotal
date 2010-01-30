@@ -36,7 +36,7 @@ describe Pivotal::Base do
   describe "updating the remote resource" do
     
     before(:each) do
-      @xml = "<story><current_state>started</current_state></story>"
+      @xml = "<api><current_state>started</current_state></api>"
       @base.resource.expects(:put).with(@xml).returns(@xml)
     end
 
@@ -49,7 +49,7 @@ describe Pivotal::Base do
     end
     
     it "should not update attributes which don't exist on the remote model" do
-      @base.update_attributes(:unknown_attribute => true)
+      @base.update_attributes(:current_state => :started, :unknown_attribute => true)
     end
     
     it "should update the stored xml with the new remote model" do
