@@ -1,0 +1,11 @@
+v 0.1.2
+- Fixed bug introduced in v 0.1.1 which prevented git pick from completing
+
+v 0.1.1
+- Updated git pick to tell Pivotal who owns the picked feature
+- Improved Pivotal Tracker framework write ability
+
+v 0.1.0
+- Initial release
+- Basic framework for reading from Pivotal Tracker
+- git pick utility
