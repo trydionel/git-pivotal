@@ -20,11 +20,6 @@ describe Pivotal::Base do
     @base.parsed_resource.should be_a(Nokogiri::XML::Document)
   end
   
-  it "should forward undefined methods to the XML parse tree" do
-    @base.should_not respond_to(:id)
-    @base.id.should == "1"
-  end
-  
   it "should present the class's item xpath" do
     @base.class.xpath.should == "//api"
   end
@@ -38,6 +33,7 @@ describe Pivotal::Base do
     before(:each) do
       @xml = "<api><current_state>started</current_state></api>"
       @base.resource.expects(:put).with(@xml).returns(@xml)
+      @base.class.has_attributes :current_state
     end
 
     it "should be able to update the remote resource with a hash of string values" do

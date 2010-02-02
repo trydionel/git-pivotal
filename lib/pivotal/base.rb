@@ -6,9 +6,9 @@ require 'builder'
 module Pivotal
   class Base
     include Pivotal::Associations
+    include Pivotal::Attributes
     
     attr_accessor :resource, :xml
-    undef id
     
     def initialize(params = {})
       params.each do |key, value|
@@ -22,10 +22,6 @@ module Pivotal
 
     def parsed_resource
       @parsed_resource ||= Nokogiri::XML(xml)
-    end
-    
-    def method_missing(method, *args)
-      parsed_resource.css(method.to_s).text
     end
     
     def update_attributes(options = {})
@@ -58,9 +54,7 @@ module Pivotal
     
     def allowed_keys(options = {})
       options.reject do |key, _|
-        !%w[id story_type url estimate current_state
-           description name requested_by owned_by
-           created_at accepted_at labels].include? key.to_s
+        !self.class.attributes.include? key.to_s
       end
     end
     
