@@ -18,6 +18,7 @@ begin
     
     gemspec.add_dependency "nokogiri"
     gemspec.add_dependency "rest-client"
+    gemspec.add_dependency "builder"
     
     gemspec.add_development_dependency "rspec"
     gemspec.add_development_dependency "mocha"
