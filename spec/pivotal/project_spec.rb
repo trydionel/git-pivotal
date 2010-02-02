@@ -3,8 +3,7 @@ require 'spec_helper'
 describe Pivotal::Project do
   
   before(:each) do
-    @api = pivotal_api
-    @project = Pivotal::Project.new :resource => @api.resource["projects"][1]
+    @project = Pivotal::Project.new :resource => pivotal_api.resource["projects"][1]
   end
   
   it "should be connected to the project resource" do
