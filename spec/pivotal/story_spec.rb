@@ -23,15 +23,18 @@ describe Pivotal::Story do
   end
   
   it "should be able to mark the story as started" do
-    @xml = "<story><current_state>started</current_state></story>"
-    @story.resource.expects(:put).with(@xml)
-
+    verify_request :put do |result|
+      result.css("story current_state").text == "started"
+    end
+  
     @story.start!
   end
   
   it "should be able to update other attributes when marking the story as started" do
-    @xml = "<story><current_state>started</current_state><owned_by>Jeff Tucker</owned_by></story>"
-    @story.resource.expects(:put).with(@xml)
+    verify_request :put do |result|
+      result.css("story current_state").inner_text == "started" && 
+        result.css("story owned_by").inner_text == "Jeff Tucker"
+    end
 
     @story.start!(:owned_by => "Jeff Tucker")
   end
