@@ -30,7 +30,7 @@ rescue
 end
 
 Spec::Rake::SpecTask.new do |t|
-  t.warning = true
+  t.spec_opts = ['--color']
   t.rcov = true
   t.rcov_opts = ['--exclude', 'gems']
 end
