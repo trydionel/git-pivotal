@@ -31,11 +31,11 @@ describe Pivotal::Story do
   end
   
   it "should be able to update other attributes when marking the story as started" do
-    verify_response :put do |result|
-      result.css("story current_state").inner_text == "started" && 
-        result.css("story owned_by").inner_text == "Jeff Tucker"
-    end
-
+    # Check the XML contains the right options.
+    # Can't just check the XML string, because the elements may be in a
+    # different order (because it's built from a hash).
+    @xpath = "//current_state = 'started' and //owned_by = 'Jeff Tucker'"
+    @story.resource.expects(:put).with {|xml| Nokogiri.XML(xml).xpath(@xpath) }
     @story.start!(:owned_by => "Jeff Tucker")
   end
   
