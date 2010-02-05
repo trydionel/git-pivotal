@@ -27,6 +27,13 @@ module Commands
       put cmd if options[:verbose]
       `#{cmd}`
     end
+    
+    def run!
+      unless options[:api_token] && options[:project_id]
+        put "Pivotal Tracker API Token and Project ID are required"
+        return 1
+      end
+    end
 
   private
 

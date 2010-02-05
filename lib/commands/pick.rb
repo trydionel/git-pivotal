@@ -4,10 +4,7 @@ module Commands
   class Pick < Base
   
     def run!
-      unless options[:api_token] && options[:project_id]
-        put "Pivotal Tracker API Token and Project ID are required"
-        return 1
-      end
+      super
     
       put "Retrieving latest stories from Pivotal Tracker..."
       api = Pivotal::Api.new(:api_token => options[:api_token])
