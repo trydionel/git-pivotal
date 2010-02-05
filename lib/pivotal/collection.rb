@@ -50,7 +50,7 @@ module Pivotal
     
     def build_collection_from_xml(xml = "")
       Nokogiri::XML(xml).xpath(component_class.xpath).map do |item|
-        item_id = item.xpath("//id").text
+        item_id = item.xpath("id").text
         component_class.new :resource => resource[item_id], :xml => item.to_xml
       end
     end
