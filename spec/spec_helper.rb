@@ -17,7 +17,7 @@ def pivotal_api
   Pivotal::Api.new :api_token => 1
 end
 
-def verify_request(method = :get)
+def verify_response(method = :get)
   RestClient::Resource.any_instance.expects(method).with do |value|
     yield Nokogiri::XML(value)
   end

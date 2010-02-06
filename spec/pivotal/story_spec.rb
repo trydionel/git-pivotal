@@ -23,7 +23,7 @@ describe Pivotal::Story do
   end
   
   it "should be able to mark the story as started" do
-    verify_request :put do |result|
+    verify_response :put do |result|
       result.css("story current_state").text == "started"
     end
   
@@ -31,7 +31,7 @@ describe Pivotal::Story do
   end
   
   it "should be able to update other attributes when marking the story as started" do
-    verify_request :put do |result|
+    verify_response :put do |result|
       result.css("story current_state").inner_text == "started" && 
         result.css("story owned_by").inner_text == "Jeff Tucker"
     end
