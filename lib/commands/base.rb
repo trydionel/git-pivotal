@@ -15,7 +15,7 @@ module Commands
     end
   
     def put(string, newline=true)
-      @output.print newline ? string + "\n" : string
+      @output.print (newline ? string + "\n" : string) unless options[:quiet]
     end
 
     def sys(cmd)
