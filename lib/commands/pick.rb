@@ -3,14 +3,26 @@ require 'commands/base'
 module Commands
   class Pick < Base
   
+    def type
+      raise Error "must define in subclass"
+    end
+    
+    def plural_type
+      raise Error "must define in subclass"
+    end
+  
+    def branch_suffix
+      raise Error "must define in subclass"
+    end
+    
     def run!
       super
     
-      put "Retrieving latest stories from Pivotal Tracker..."
+      put "Retrieving latest #{plural_type} from Pivotal Tracker..."
       api = Pivotal::Api.new(:api_token => options[:api_token])
 
       project = api.projects.find(:id => options[:project_id])
-      story = project.stories.find(:conditions => { :story_type => :feature, :current_state => :unstarted }, :limit => 1).first
+      story = project.stories.find(:conditions => { :story_type => type, :current_state => :unstarted }, :limit => 1).first
     
       unless story
         put "No stories available!"
@@ -20,9 +32,9 @@ module Commands
       put "Story: #{story.name}"
       put "URL:   #{story.url}"
 
-      suffix = "feature"
+      suffix = branch_suffix
       unless options[:quiet]
-        put "Enter branch name (will be prepended by #{story.id}) [feature]: ", false
+        put "Enter branch name (will be prepended by #{story.id}) [#{suffix}]: ", false
         suffix = input.gets.chomp
       
         suffix = "feature" if suffix == ""
