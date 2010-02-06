@@ -42,9 +42,9 @@ module Commands
       id    = get("git config --get pivotal.project-id").strip
       name  = get("git config --get pivotal.full-name").strip
 
-      options[:api_token] = token if token
-      options[:project_id] = id if id
-      options[:full_name] = name if name
+      options[:api_token] = token unless token == ""
+      options[:project_id] = id unless id == ""
+      options[:full_name] = name unless name == ""
     end
 
     def parse_argv(*args)
