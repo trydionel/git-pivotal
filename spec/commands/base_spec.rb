@@ -66,4 +66,18 @@ describe Commands::Base do
     @pick.options[:verbose].should be_false
   end
   
+  it "should print a message if the API token is missing" do
+    @output.expects(:print).with("Pivotal Tracker API Token and Project ID are required\n")
+
+    @pick = Commands::Base.new(@input, @output, "-p", "1")
+    @pick.run!
+  end
+  
+  it "should print a message if the project ID is missing" do
+    @output.expects(:print).with("Pivotal Tracker API Token and Project ID are required\n")
+
+    @pick = Commands::Base.new(@input, @output, "-k", "1")
+    @pick.run!    
+  end
+  
 end
