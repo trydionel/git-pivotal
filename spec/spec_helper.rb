@@ -2,7 +2,6 @@ require 'rubygems'
 require 'mocha'
 require 'builder'
 require 'pivotal'
-require 'commands/pick'
 
 Spec::Runner.configure do |config|
   config.mock_with :mocha
