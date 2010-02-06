@@ -14,8 +14,6 @@ begin
     gemspec.homepage = "http://github.com/trydionel/git-pivotal"
     gemspec.authors = ["Jeff Tucker"]
     
-    gemspec.executables = ["git-pick", "git-finish"]
-    
     gemspec.add_dependency "nokogiri"
     gemspec.add_dependency "rest-client"
     gemspec.add_dependency "builder"
