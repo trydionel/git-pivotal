@@ -23,10 +23,8 @@ describe Pivotal::Story do
   end
   
   it "should be able to mark the story as started" do
-    verify_response :put do |result|
-      result.css("story current_state").text == "started"
-    end
-  
+    @xpath = "//current_state = 'started'"
+    @story.resource.expects(:put).with { |xml| Nokogiri::XML(xml).xpath(@xpath) }
     @story.start!
   end
   
