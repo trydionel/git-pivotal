@@ -15,7 +15,7 @@ module Pivotal
         
         attributes.each do |attribute|
           define_method attribute do
-            parsed_resource.css(attribute.to_s).text
+            parsed_resource.xpath("*/" + attribute.to_s).text
           end
         end
       end
