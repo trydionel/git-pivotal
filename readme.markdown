@@ -7,17 +7,26 @@ You might want to have [this song](http://www.dailymotion.com/video/x9vzh0_olivi
 Inspired by [Hashrocket's blend of git and Pivotal Tracker](http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html) and [a popular article on effective git workflows](http://nvie.com/archives/323), I set off to create a set of utilities to simplify the workflow between the two.
 
 ###Git Pick
-This selects the top-most available feature from your Pivotal Tracker, and offers to create a feature branch.
+The original `git pick` has been deprecated.  Three new commands take its place: `git feature`, `git bug` and `git chore`, which collects the top-most available feature, bug or chore (respectively) from your Pivotal Tracker, and offers to create a feature branch.
 
-    1 git-pick:master % git pick
+    1 git-pick:master % git feature
     Collecting latest stories from Pivotal Tracker...
     Story: Test git pivotal
     URL:   http://www.pivotaltracker.com/story/show/1234567
+    Updating story status in Pivotal Tracker...
     Enter branch name (will be prepended by 1234567) [feature]: testing
-    Creating branch...
     Creating 1234567-testing branch...
     2 git-pick:1234567-testing %
     
+###Git Finish
+When on a feature branch, this command will close the associated story in Pivotal Tracker, merge the branch into the develop branch and remove the feature branch.
+
+    3 git-pick:1234567-testing % git finish
+    Marking Story 1234567 as finished...
+    Merging 1234567-testing into develop
+    Removing 1234567-testing branch
+    4 git-pick:develop %
+
 ##Installation
 To install git-pivotal, simply run
 
@@ -40,6 +49,7 @@ This is <del>some seriously</del> alpha software.  Several things on the ol' tod
 
 * <del>Create a general Pivotal::Base#update_attributes method</del>
 * <del>`git pick` doesn't update the story to indicate who claimed it</del>
-* Add command to close/finish currently 'picked' feature
+* <del>Add command to close/finish currently 'picked' feature</del>
 * <del>Reduce verbosity of `git pick`</del>
+* Allow users to define their development branch name for `git finish`
 * More that I can't recall at the moment
