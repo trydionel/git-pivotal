@@ -20,6 +20,40 @@ describe Pivotal::Story do
     it "should include #{method} in the list of valid attributes" do
       @story.class.attributes.should include(method)
     end
+  it "should specify whether the story is a feature" do
+    @story.xml = story_type "feature"
+
+    @story.should be_a_feature
+    @story.should_not be_a_bug
+    @story.should_not be_a_chore
+    @story.should_not be_a_release
+  end
+  
+  it "should specify whether the story is a bug" do
+    @story.xml = story_type "bug"
+
+    @story.should_not be_a_feature
+    @story.should be_a_bug
+    @story.should_not be_a_chore
+    @story.should_not be_a_release
+  end
+  
+  it "should specify whether the story is a chore" do
+    @story.xml = story_type "chore"
+
+    @story.should_not be_a_feature
+    @story.should_not be_a_bug
+    @story.should be_a_chore
+    @story.should_not be_a_release
+  end
+  
+  it "should specify whether the story is a release" do
+    @story.xml = story_type "release"
+
+    @story.should_not be_a_feature
+    @story.should_not be_a_bug
+    @story.should_not be_a_chore
+    @story.should be_a_release
   end
   
   it "should be able to mark the story as started" do

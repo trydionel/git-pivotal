@@ -8,6 +8,22 @@ module Pivotal
     def start!(options = {})
       update_attributes(options.merge(:current_state => :started))
     end
+    
+    def feature?
+      story_type == "feature"
+    end
+    
+    def bug?
+      story_type == "bug"
+    end
+    
+    def chore?
+      story_type == "chore"
+    end
+    
+    def release?
+      story_type == "release"
+    end
   
   end
 end
