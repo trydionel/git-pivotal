@@ -5,15 +5,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{git-pivotal}
-  s.version = "0.1.3"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Jeff Tucker"]
-  s.date = %q{2010-01-30}
-  s.default_executable = %q{git-pick}
+  s.authors = ["Jeff Tucker", "Sam Stokes"]
+  s.date = %q{2010-02-14}
   s.description = %q{A collection of git utilities to ease integration with Pivotal Tracker}
   s.email = %q{jeff@trydionel.com}
-  s.executables = ["git-pick"]
+  s.executables = ["git-bug", "git-feature", "git-finish", "git-pick"]
   s.extra_rdoc_files = [
     "LICENSE"
   ]
@@ -23,20 +22,33 @@ Gem::Specification.new do |s|
      "LICENSE",
      "Rakefile",
      "VERSION",
+     "bin/git-bug",
+     "bin/git-feature",
+     "bin/git-finish",
      "bin/git-pick",
      "git-pivotal.gemspec",
+     "lib/commands/base.rb",
+     "lib/commands/bug.rb",
+     "lib/commands/feature.rb",
+     "lib/commands/finish.rb",
      "lib/commands/pick.rb",
      "lib/pivotal.rb",
      "lib/pivotal/api.rb",
      "lib/pivotal/associations.rb",
+     "lib/pivotal/attributes.rb",
      "lib/pivotal/base.rb",
      "lib/pivotal/collection.rb",
      "lib/pivotal/project.rb",
      "lib/pivotal/story.rb",
      "readme.markdown",
-     "spec/commands/pick_spec.rb",
+     "spec/commands/base_spec.rb",
+     "spec/commands/bug_spec.rb",
+     "spec/commands/feature_spec.rb",
+     "spec/factories.rb",
+     "spec/factory.rb",
      "spec/pivotal/api_spec.rb",
      "spec/pivotal/associations_spec.rb",
+     "spec/pivotal/attributes_spec.rb",
      "spec/pivotal/base_spec.rb",
      "spec/pivotal/collection_spec.rb",
      "spec/pivotal/project_spec.rb",
@@ -49,9 +61,14 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{A collection of git utilities to ease integration with Pivotal Tracker}
   s.test_files = [
-    "spec/commands/pick_spec.rb",
+    "spec/commands/base_spec.rb",
+     "spec/commands/bug_spec.rb",
+     "spec/commands/feature_spec.rb",
+     "spec/factories.rb",
+     "spec/factory.rb",
      "spec/pivotal/api_spec.rb",
      "spec/pivotal/associations_spec.rb",
+     "spec/pivotal/attributes_spec.rb",
      "spec/pivotal/base_spec.rb",
      "spec/pivotal/collection_spec.rb",
      "spec/pivotal/project_spec.rb",
@@ -66,18 +83,24 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<nokogiri>, [">= 0"])
       s.add_runtime_dependency(%q<rest-client>, [">= 0"])
+      s.add_runtime_dependency(%q<builder>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
+      s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<mocha>, [">= 0"])
     else
       s.add_dependency(%q<nokogiri>, [">= 0"])
       s.add_dependency(%q<rest-client>, [">= 0"])
+      s.add_dependency(%q<builder>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
+      s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<mocha>, [">= 0"])
     end
   else
     s.add_dependency(%q<nokogiri>, [">= 0"])
     s.add_dependency(%q<rest-client>, [">= 0"])
+    s.add_dependency(%q<builder>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
+    s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<mocha>, [">= 0"])
   end
 end
