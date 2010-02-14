@@ -2,6 +2,7 @@ require 'rubygems'
 require 'mocha'
 require 'builder'
 require 'pivotal'
+require File.join(File.dirname(__FILE__), 'factories')
 
 Spec::Runner.configure do |config|
   config.mock_with :mocha
