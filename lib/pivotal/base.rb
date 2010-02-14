@@ -25,8 +25,14 @@ module Pivotal
     end
     
     def update_attributes(options = {})
-      @xml = resource.put generate_xml(options)
-      return self
+      resource.put generate_xml(options) do |response|
+        if response.code == 200
+          @xml = response.body
+          return true
+        else
+          return false
+        end
+      end  
     end
     
     class << self
