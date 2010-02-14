@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe Pivotal::Story do
 
+  def story_type(type = "feature")
+    Factory(:story, :story_type => type)
+  end
+  
   before(:each) do
     @story = Pivotal::Story.new :resource => pivotal_api.resource["projects"][1]["stories"][1]
   end
@@ -20,6 +24,13 @@ describe Pivotal::Story do
     it "should include #{method} in the list of valid attributes" do
       @story.class.attributes.should include(method)
     end
+    
+    it "should return the proper value when #{method} is called" do
+      @story.xml = Factory(:story, method.to_sym => "Test Result")
+      @story.send(method).should == "Test Result"
+    end
+  end
+  
   it "should specify whether the story is a feature" do
     @story.xml = story_type "feature"
 
