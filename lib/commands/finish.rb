@@ -26,6 +26,9 @@ module Commands
       sys "git checkout #{target_branch}"
       sys "git merge --no-ff #{current_branch}"
       
+      put "Removing #{current_branch} branch"
+      sys "git branch -d #{current_branch}"
+      
       return 0
     end
 
