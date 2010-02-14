@@ -32,24 +32,29 @@ module Commands
       put "Story: #{story.name}"
       put "URL:   #{story.url}"
 
-      suffix = branch_suffix
-      unless options[:quiet]
-        put "Enter branch name (will be prepended by #{story.id}) [#{suffix}]: ", false
-        suffix = input.gets.chomp
-      
-        suffix = "feature" if suffix == ""
-      end
-
-      branch = "#{story.id}-#{suffix}"
-      if get("git branch").match(branch).nil?
-        put "Creating #{branch} branch..."
-        sys "git checkout -b #{branch}"
-      end
-    
       put "Updating story status in Pivotal Tracker..."
-      story.start!(:owned_by => options[:full_name])
+      if story.start!(:owned_by => options[:full_name])
     
-      return 0
+        suffix = branch_suffix
+        unless options[:quiet]
+          put "Enter branch name (will be prepended by #{story.id}) [#{suffix}]: ", false
+          suffix = input.gets.chomp
+      
+          suffix = "feature" if suffix == ""
+        end
+
+        branch = "#{story.id}-#{suffix}"
+        if get("git branch").match(branch).nil?
+          put "Creating #{branch} branch..."
+          sys "git checkout -b #{branch}"
+        end
+    
+        return 0
+      else
+        put "Unable to mark story as started"
+        
+        return 1
+      end
     end
 
   end
