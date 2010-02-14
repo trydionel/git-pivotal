@@ -71,4 +71,13 @@ describe Pivotal::Story do
     @story.start!(:owned_by => "Jeff Tucker")
   end
   
+  it "should return false if attempting to start an unestimated feature story" do
+    # bad_response = mock("Response")
+    # bad_response.stubs(:code).returns(422)
+    # RestClient::Resource.any_instance.stubs(:put).yields(bad_response)
+    
+    @story.xml = Factory(:story, :story_type => :feature, :estimate => :unestimated)
+    @story.start!.should be_false
+  end
+  
 end

@@ -6,6 +6,8 @@ module Pivotal
                    :created_at, :accepted_at, :labels
     
     def start!(options = {})
+      return false if feature? && unestimated?
+      
       update_attributes(options.merge(:current_state => :started))
     end
     
@@ -23,6 +25,10 @@ module Pivotal
     
     def release?
       story_type == "release"
+    end
+    
+    def unestimated?
+      estimate == "unestimated"
     end
   
   end
