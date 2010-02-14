@@ -19,17 +19,22 @@ module Commands
       story = project.stories.find(:id => story_id)
       
       put "Marking Story #{story_id} as finished..."
-      story.update_attributes(:current_state => :finished)
+      if story.update_attributes(:current_state => :finished)
       
-      target_branch = "develop"
-      put "Merging #{current_branch} into #{target_branch}"
-      sys "git checkout #{target_branch}"
-      sys "git merge --no-ff #{current_branch}"
+        target_branch = "develop"
+        put "Merging #{current_branch} into #{target_branch}"
+        sys "git checkout #{target_branch}"
+        sys "git merge --no-ff #{current_branch}"
       
-      put "Removing #{current_branch} branch"
-      sys "git branch -d #{current_branch}"
-      
-      return 0
+        put "Removing #{current_branch} branch"
+        sys "git branch -d #{current_branch}"
+
+        return 0
+      else
+        put "Unable to mark Story #{story_id} as finished"
+        
+        return 1
+      end
     end
 
   end
