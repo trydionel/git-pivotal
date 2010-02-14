@@ -12,14 +12,14 @@ begin
     gemspec.description = "A collection of git utilities to ease integration with Pivotal Tracker"
     gemspec.email = "jeff@trydionel.com"
     gemspec.homepage = "http://github.com/trydionel/git-pivotal"
-    gemspec.authors = ["Jeff Tucker"]
-    
-    gemspec.executables = ["git-pick"]
+    gemspec.authors = ["Jeff Tucker", "Sam Stokes"]
     
     gemspec.add_dependency "nokogiri"
     gemspec.add_dependency "rest-client"
+    gemspec.add_dependency "builder"
     
     gemspec.add_development_dependency "rspec"
+    gemspec.add_development_dependency "rcov"
     gemspec.add_development_dependency "mocha"
   end
   
@@ -29,7 +29,7 @@ rescue
 end
 
 Spec::Rake::SpecTask.new do |t|
-  t.warning = true
+  t.spec_opts = ['--color']
   t.rcov = true
   t.rcov_opts = ['--exclude', 'gems']
 end

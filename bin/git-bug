@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+require 'pivotal'
+require 'commands/bug'
+
+exit Commands::Bug.new(STDIN, STDOUT, *ARGV).run!
