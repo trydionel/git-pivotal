@@ -17,7 +17,7 @@ module Pivotal
     end    
     
     def xml
-      @xml ||= resource.get
+      @xml ||= resource.get.body
     end
 
     def parsed_resource

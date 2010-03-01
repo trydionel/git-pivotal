@@ -8,6 +8,8 @@ describe Pivotal::Story do
   
   before(:each) do
     @story = Pivotal::Story.new :resource => pivotal_api.resource["projects"][1]["stories"][1]
+    @response = mock("response")
+    @response.stubs(:body => "")
   end
   
   it "should be connected to the story resource" do
@@ -68,12 +70,16 @@ describe Pivotal::Story do
   end
   
   it "should be able to mark the story as started" do
+    @story.resource.stubs(:get => @response)
+
     @xpath = "//current_state = 'started'"
     @story.resource.expects(:put).with { |xml| Nokogiri::XML(xml).xpath(@xpath) }
     @story.start!
   end
   
   it "should be able to update other attributes when marking the story as started" do
+    @story.resource.stubs(:get => @response)
+
     # Check the XML contains the right options.
     # Can't just check the XML string, because the elements may be in a
     # different order (because it's built from a hash).

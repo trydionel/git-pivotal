@@ -56,7 +56,7 @@ module Pivotal
     end
     
     def all(params = {})
-      build_collection_from_xml resource[filters(params)].get
+      build_collection_from_xml resource[filters(params)].get.body
     end
     
   end

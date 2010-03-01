@@ -4,7 +4,9 @@ describe Pivotal::Collection do
   
   before(:each) do
     @api = pivotal_api
-    RestClient::Resource.any_instance.stubs(:get).returns("<project><id>1</id></project>")
+    response = mock("response")
+    response.stubs(:body => "<project><id>1</id></project>")
+    RestClient::Resource.any_instance.stubs(:get).returns(response)
   end
   
   it "should find a single item given an id" do
