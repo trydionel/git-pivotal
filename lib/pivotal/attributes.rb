@@ -11,7 +11,7 @@ module Pivotal
     
     module ClassMethods
       def has_attributes(*attributes)
-        @attributes = attributes.map(&:to_s)
+        @attributes = attributes.map { |attribute| attribute.to_s }
         
         attributes.each do |attribute|
           define_method attribute do
