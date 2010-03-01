@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{git-pivotal}
-  s.version = "0.2.0"
+  s.version = "0.2.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Tucker", "Sam Stokes"]
-  s.date = %q{2010-02-14}
+  s.date = %q{2010-02-28}
   s.description = %q{A collection of git utilities to ease integration with Pivotal Tracker}
   s.email = %q{jeff@trydionel.com}
   s.executables = ["git-bug", "git-feature", "git-finish", "git-pick"]
