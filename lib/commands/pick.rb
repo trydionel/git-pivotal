@@ -25,14 +25,14 @@ module Commands
       story = project.stories.find(:conditions => { :story_type => type, :current_state => :unstarted }, :limit => 1).first
     
       unless story
-        put "No stories available!"
+        put "No #{plural_type} available!"
         return 0
       end
     
       put "Story: #{story.name}"
       put "URL:   #{story.url}"
 
-      put "Updating story status in Pivotal Tracker..."
+      put "Updating #{type} status in Pivotal Tracker..."
       if story.start!(:owned_by => options[:full_name])
     
         suffix = branch_suffix
@@ -51,7 +51,7 @@ module Commands
     
         return 0
       else
-        put "Unable to mark story as started"
+        put "Unable to mark #{type} as started"
         
         return 1
       end
