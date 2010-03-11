@@ -5,14 +5,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{git-pivotal}
-  s.version = "0.2.1"
+  s.version = "0.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Tucker", "Sam Stokes"]
-  s.date = %q{2010-02-28}
+  s.date = %q{2010-03-11}
   s.description = %q{A collection of git utilities to ease integration with Pivotal Tracker}
   s.email = %q{jeff@trydionel.com}
-  s.executables = ["git-bug", "git-feature", "git-finish", "git-pick"]
+  s.executables = ["git-bug", "git-chore", "git-feature", "git-finish", "git-pick"]
   s.extra_rdoc_files = [
     "LICENSE"
   ]
@@ -23,12 +23,14 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "bin/git-bug",
+     "bin/git-chore",
      "bin/git-feature",
      "bin/git-finish",
      "bin/git-pick",
      "git-pivotal.gemspec",
      "lib/commands/base.rb",
      "lib/commands/bug.rb",
+     "lib/commands/chore.rb",
      "lib/commands/feature.rb",
      "lib/commands/finish.rb",
      "lib/commands/pick.rb",
@@ -43,6 +45,7 @@ Gem::Specification.new do |s|
      "readme.markdown",
      "spec/commands/base_spec.rb",
      "spec/commands/bug_spec.rb",
+     "spec/commands/chore_spec.rb",
      "spec/commands/feature_spec.rb",
      "spec/factories.rb",
      "spec/factory.rb",
@@ -58,11 +61,12 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/trydionel/git-pivotal}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{A collection of git utilities to ease integration with Pivotal Tracker}
   s.test_files = [
     "spec/commands/base_spec.rb",
      "spec/commands/bug_spec.rb",
+     "spec/commands/chore_spec.rb",
      "spec/commands/feature_spec.rb",
      "spec/factories.rb",
      "spec/factory.rb",
