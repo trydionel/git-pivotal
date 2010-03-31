@@ -19,11 +19,7 @@ module Commands
       super
     
       put "Retrieving latest #{plural_type} from Pivotal Tracker..."
-      api = Pivotal::Api.new(:api_token => options[:api_token])
 
-      project = api.projects.find(:id => options[:project_id])
-      story = project.stories.find(:conditions => { :story_type => type, :current_state => :unstarted }, :limit => 1).first
-    
       unless story
         put "No #{plural_type} available!"
         return 0
@@ -57,5 +53,10 @@ module Commands
       end
     end
 
+  protected
+
+    def story
+      @story ||= project.stories.find(:conditions => { :story_type => type, :current_state => :unstarted }, :limit => 1).first
+    end
   end
 end

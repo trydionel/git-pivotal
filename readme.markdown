@@ -19,13 +19,13 @@ The original `git pick` has been deprecated.  Three new commands take its place:
     2 git-pick:1234567-testing %
     
 ###Git Finish
-When on a feature branch, this command will close the associated story in Pivotal Tracker, merge the branch into the develop branch and remove the feature branch.
+When on a feature branch, this command will close the associated story in Pivotal Tracker, merge the branch into the master branch and remove the feature branch.
 
     3 git-pick:1234567-testing % git finish
     Marking Story 1234567 as finished...
-    Merging 1234567-testing into develop
+    Merging 1234567-testing into master
     Removing 1234567-testing branch
-    4 git-pick:develop %
+    4 git-pick:master %
 
 ##Installation
 To install git-pivotal, simply run
@@ -37,6 +37,10 @@ Once installed, git pivotal needs three bits of info: your Pivotal Tracker API T
 
     git config --global pivotal.api-token 9a9a9a9a9a9a9a9a9a9a
     git config --global pivotal.full-name "Jeff Tucker"
+
+If you prefer to merge back to a branch other than master when you've finished a story, you can configure that:
+
+    git config --global pivotal.integration-branch develop
 
 The project id is best placed within your project's git config:
 
@@ -51,5 +55,5 @@ This is <del>some seriously</del> alpha software.  Several things on the ol' tod
 * <del>`git pick` doesn't update the story to indicate who claimed it</del>
 * <del>Add command to close/finish currently 'picked' feature</del>
 * <del>Reduce verbosity of `git pick`</del>
-* Allow users to define their development branch name for `git finish`
+* <del>Allow users to define their development branch name for `git finish`</del>
 * More that I can't recall at the moment

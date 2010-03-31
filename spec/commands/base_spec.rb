@@ -65,7 +65,28 @@ describe Commands::Base do
     @pick = Commands::Base.new(@input, @output,"--no-verbose")
     @pick.options[:verbose].should be_false
   end
-  
+
+  it "should set the integration branch with the -b option" do
+    @pick = Commands::Base.new(@input, @output, "-b", "integration")
+    @pick.send(:integration_branch).should == "integration"
+  end
+
+  it "should set the integration branch from git config" do
+    Commands::Base.any_instance.stubs(:get).with("git config --get pivotal.integration-branch").returns("chickens")
+    @pick = Commands::Base.new
+    @pick.send(:integration_branch).should == "chickens"
+  end
+
+  it "should set the integration branch with the --integration-branch= option" do
+    @pick = Commands::Base.new(@input, @output, "--integration-branch=integration")
+    @pick.send(:integration_branch).should == "integration"
+  end
+
+  it "should default the integration branch to master if none is specified" do
+    @pick = Commands::Base.new
+    @pick.send(:integration_branch).should == "master"
+  end
+
   it "should print a message if the API token is missing" do
     @output.expects(:print).with("Pivotal Tracker API Token and Project ID are required\n")
 
