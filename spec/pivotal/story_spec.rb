@@ -96,5 +96,18 @@ describe Pivotal::Story do
     @story.xml = Factory(:story, :story_type => :feature, :estimate => :unestimated)
     @story.start!.should be_false
   end
+
+  it "should return a finished state of accepted for a chore" do
+    @story.xml = story_type "chore"
+    @story.finished_state.should == :accepted
+  end
+
+  ["feature", "release", "bug"].each do |type|
+    it "should return a finished state of finished for a #{type}" do
+      @story.xml = story_type type
+      @story.finished_state.should == :finished
+    end
+  end
+
   
 end

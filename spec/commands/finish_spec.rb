@@ -80,13 +80,15 @@ describe Commands::Finish do
       Commands::Finish.any_instance.stubs(:get).with { |v| v =~ /git status/ }.returns("# On branch #{branch_name}")
     end
 
-    it "should attempt to update the story status to finished" do
+    it "should attempt to update the story status to the stories finished_state" do
+      mock_story.stubs(:finished_state).returns(:finished)
       mock_story.expects(:update_attributes).with(:current_state => :finished)
       @finish.run!
     end
 
     context "and the story is successfully marked as finished in PT" do
       before(:each) do
+        mock_story.stubs(:finished_state).returns(:finished)
         mock_story.stubs(:update_attributes).with(:current_state => :finished).returns(true)
       end
 
@@ -112,6 +114,7 @@ describe Commands::Finish do
 
     context "and the story fails to be marked as finished in PT" do
       before(:each) do
+        mock_story.stubs(:finished_state).returns(:finished)
         mock_story.stubs(:update_attributes).with(:current_state => :finished).returns(false)
       end
 

@@ -30,6 +30,15 @@ module Pivotal
     def unestimated?
       estimate == "unestimated"
     end
+
+    def finished_state
+      case story_type
+        when "chore"
+          :accepted
+        else
+          :finished
+      end
+    end
   
   end
 end
