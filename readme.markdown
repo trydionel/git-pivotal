@@ -48,6 +48,10 @@ The project id is best placed within your project's git config:
 
 If you're not interested in storing these options in git, you can pass them into git pivotal as command line arguments.  See the usage guides for more details.
 
+Optionally, if you only want to pick up bugs/features/chores that are already assigned to you, set:
+
+    git config -f .git/config pivotal.only-mine 1
+
 ##TODO
 This is <del>some seriously</del> alpha software.  Several things on the ol' todo list:
 
