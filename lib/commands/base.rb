@@ -75,7 +75,7 @@ module Commands
         opts.on("-m", "--only-mine", "Only select Pivotal Tracker stories assigned to you") { |m| options[:only_mine] = m }
         opts.on("-q", "--quiet", "Quiet, no-interaction mode") { |q| options[:quiet] = q }
         opts.on("-v", "--[no-]verbose", "Run verbosely") { |v| options[:verbose] = v }
-        opts.on_tail("-h", "--help", "This usage guide") { put opts; exit 0 }
+        opts.on_tail("-h", "--help", "This usage guide") { put opts.to_s; exit 0 }
       end.parse!(args)
     end
 
