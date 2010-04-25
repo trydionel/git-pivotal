@@ -4,15 +4,15 @@ module Commands
   class Pick < Base
   
     def type
-      raise Error "must define in subclass"
+      raise Error("must define in subclass")
     end
     
     def plural_type
-      raise Error "must define in subclass"
+      raise Error("must define in subclass")
     end
   
     def branch_suffix
-      raise Error "must define in subclass"
+      raise Error("must define in subclass")
     end
     
     def run!
