@@ -47,6 +47,7 @@ Gem::Specification.new do |s|
      "spec/commands/bug_spec.rb",
      "spec/commands/chore_spec.rb",
      "spec/commands/feature_spec.rb",
+     "spec/commands/finish_spec.rb",
      "spec/factories.rb",
      "spec/factory.rb",
      "spec/pivotal/api_spec.rb",
@@ -56,6 +57,7 @@ Gem::Specification.new do |s|
      "spec/pivotal/collection_spec.rb",
      "spec/pivotal/project_spec.rb",
      "spec/pivotal/story_spec.rb",
+     "spec/spec.opts",
      "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/trydionel/git-pivotal}
