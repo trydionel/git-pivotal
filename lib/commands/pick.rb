@@ -4,26 +4,26 @@ module Commands
   class Pick < Base
   
     def type
-      raise Error "must define in subclass"
+      raise Error("must define in subclass")
     end
     
     def plural_type
-      raise Error "must define in subclass"
+      raise Error("must define in subclass")
     end
   
     def branch_suffix
-      raise Error "must define in subclass"
+      raise Error("must define in subclass")
     end
     
     def run!
       super
-    
-      put "Retrieving latest #{plural_type} from Pivotal Tracker..."
-      api = Pivotal::Api.new(:api_token => options[:api_token])
 
-      project = api.projects.find(:id => options[:project_id])
-      story = project.stories.find(:conditions => { :story_type => type, :current_state => :unstarted }, :limit => 1).first
-    
+      msg = "Retrieving latest #{plural_type} from Pivotal Tracker"
+      if options[:only_mine]
+        msg += " for #{options[:full_name]}"
+      end
+      put "#{msg}..."
+      
       unless story
         put "No #{plural_type} available!"
         return 0
@@ -57,5 +57,14 @@ module Commands
       end
     end
 
+  protected
+
+    def story
+      return @story if @story
+      
+      conditions = { :story_type => type, :current_state => :unstarted }
+      conditions[:owned_by] = options[:full_name] if options[:only_mine]
+      @story = project.stories.find(:conditions => conditions, :limit => 1).first
+    end
   end
 end
