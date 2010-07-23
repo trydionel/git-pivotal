@@ -1,4 +1,5 @@
 require 'rubygems'
+gem 'rest-client', '~>1.4.0'
 require 'rest_client'
 require 'nokogiri'
 require 'builder'
