@@ -33,7 +33,7 @@ module Commands
       put "URL:   #{story.url}"
 
       put "Updating #{type} status in Pivotal Tracker..."
-      if story.start!(:owned_by => options[:full_name])
+      if story.update(:owned_by => options[:full_name])
     
         suffix = branch_suffix
         unless options[:quiet]
@@ -62,9 +62,9 @@ module Commands
     def story
       return @story if @story
       
-      conditions = { :story_type => type, :current_state => :unstarted }
+      conditions = { :story_type => type, :current_state => :unstarted, :limit => 1, :offset => 0 }
       conditions[:owned_by] = options[:full_name] if options[:only_mine]
-      @story = project.stories.find(:conditions => conditions, :limit => 1).first
+      @story = project.stories.find(conditions).first
     end
   end
 end

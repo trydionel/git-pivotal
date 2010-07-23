@@ -46,7 +46,7 @@ describe Commands::Finish do
     # stub out git config requests
     Commands::Finish.any_instance.stubs(:get).with { |v| v =~ /git config/ }.returns("")
 
-    Pivotal::Api.any_instance.stubs(:projects).returns(mock_projects)
+    PivotalTracker::Project.stubs(:find).returns(mock_projects)
 
     @finish = Commands::Finish.new(nil, nil, "-p", mock_project_id)
     @finish.stubs(:sys)

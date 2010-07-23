@@ -1,3 +1,4 @@
+require 'pivotal-tracker'
 require 'optparse'
 
 module Commands
@@ -12,6 +13,8 @@ module Commands
       
       parse_gitconfig
       parse_argv(*args)
+      
+      PivotalTracker::Client.token = options[:api_token]
     end
   
     def put(string, newline=true)
@@ -38,11 +41,7 @@ module Commands
   protected
 
     def project
-      @project ||= api.projects.find(:id => options[:project_id])
-    end
-
-    def api
-      @api ||= Pivotal::Api.new(:api_token => options[:api_token])
+      @project ||= PivotalTracker::Project.find(options[:project_id])
     end
 
     def integration_branch

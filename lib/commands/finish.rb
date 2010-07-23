@@ -12,7 +12,7 @@ module Commands
       end
 
       put "Marking Story #{story_id} as finished..."
-      if story.update_attributes(:current_state => story.finished_state)
+      if story.update(:current_state => story.finished_state)
         put "Merging #{current_branch} into #{integration_branch}"
         sys "git checkout #{integration_branch}"
         sys "git merge --no-ff #{current_branch}"
@@ -40,7 +40,7 @@ module Commands
     end
 
     def story
-      @story ||= project.stories.find(:id => story_id)
+      @story ||= project.stories.find(story_id)
     end
   end
 end

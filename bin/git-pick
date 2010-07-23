@@ -2,7 +2,6 @@
 
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
-require 'pivotal'
 require 'commands/feature'
 
 STDOUT.puts "DEPRECATION WARNING: git pick has been deprecated.  Please use git feature instead."

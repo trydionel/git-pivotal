@@ -2,7 +2,6 @@
 
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
-require 'pivotal'
 require 'commands/chore'
 
 exit Commands::Chore.new(STDIN, STDOUT, *ARGV).run!
