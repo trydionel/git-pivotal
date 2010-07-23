@@ -19,7 +19,7 @@ module Commands
       super
 
       msg = "Retrieving latest #{plural_type} from Pivotal Tracker"
-      if options[:only_mine] != nil
+      if options[:only_mine]
         msg += " for #{options[:full_name]}"
       end
       put "#{msg}..."
@@ -63,7 +63,7 @@ module Commands
       return @story if @story
       
       conditions = { :story_type => type, :current_state => :unstarted }
-      conditions[:owned_by] = options[:full_name] unless options[:only_mine] == nil
+      conditions[:owned_by] = options[:full_name] if options[:only_mine]
       @story = project.stories.find(:conditions => conditions, :limit => 1).first
     end
   end

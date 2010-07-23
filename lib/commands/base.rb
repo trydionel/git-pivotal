@@ -62,7 +62,7 @@ module Commands
       options[:project_id]         = id                 unless id == ""
       options[:full_name]          = name               unless name == ""
       options[:integration_branch] = integration_branch unless integration_branch == ""
-      options[:only_mine]          = only_mine          unless name == ""
+      options[:only_mine]          = (only_mine != "")  unless name == ""
     end
 
     def parse_argv(*args)
