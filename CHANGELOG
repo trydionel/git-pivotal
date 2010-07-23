@@ -1,3 +1,21 @@
+v 0.2.3
+- Allow the developer to specify the integration branch for git finish [Graeme Mathieson]
+- Fixed bug which prevented chores from finishing successfully [Joshua Vial]
+- Added option to allow only pickup items already assigned to you [Mark Butcher]
+- Fix RestClient version issues
+
+v 0.2.2
+- Added git chore command
+
+v 0.2.1
+- Remove &:to_s shortcut for MRI 1.8.6 compatibility
+- Updated to handle RestClient 1.4
+
+v 0.2.0
+- Added git feature and git bug commands
+- Deprecated git feature
+- Improved XPath reliability for Pivotal API requests [Sam Stokes]
+
 v 0.1.3
 - Fixed bug preventing command line args from being properly interpretted
 
