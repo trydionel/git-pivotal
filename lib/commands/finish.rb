@@ -12,7 +12,7 @@ module Commands
       end
 
       put "Marking Story #{story_id} as finished..."
-      if story.update(:current_state => story.finished_state)
+      if story.update(:current_state => finished_state)
         put "Merging #{current_branch} into #{integration_branch}"
         sys "git checkout #{integration_branch}"
         sys "git merge --no-ff #{current_branch}"
@@ -29,6 +29,14 @@ module Commands
     end
 
   protected
+  
+    def finished_state
+      if story.story_type == "chore"
+        "accepted"
+      else
+        "finished"
+      end
+    end
 
     # FIXME: clunky way to get branch name... need better method
     def current_branch
