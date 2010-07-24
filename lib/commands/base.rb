@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'pivotal-tracker'
 require 'optparse'
 
@@ -13,8 +14,6 @@ module Commands
       
       parse_gitconfig
       parse_argv(*args)
-      
-      PivotalTracker::Client.token = options[:api_token]
     end
   
     def put(string, newline=true)
@@ -36,6 +35,7 @@ module Commands
         put "Pivotal Tracker API Token and Project ID are required"
         return 1
       end
+      PivotalTracker::Client.token = options[:api_token]
     end
 
   protected
