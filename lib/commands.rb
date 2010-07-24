@@ -1,0 +1,6 @@
+require File.expand_path(File.join(File.dirname(__FILE__), 'commands', 'base'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'commands', 'pick'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'commands', 'feature'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'commands', 'bug'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'commands', 'chore'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'commands', 'finish'))
