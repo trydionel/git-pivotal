@@ -1,4 +1,3 @@
-require 'commands/finish'
 require 'spec_helper'
 
 describe Commands::Finish do

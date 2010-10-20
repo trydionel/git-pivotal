@@ -1,4 +1,3 @@
-require 'commands/bug'
 require 'spec_helper'
 
 describe Commands::Bug do

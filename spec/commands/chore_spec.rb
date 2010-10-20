@@ -1,4 +1,3 @@
-require 'commands/chore'
 require 'spec_helper'
 
 describe Commands::Chore do

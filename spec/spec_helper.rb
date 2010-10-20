@@ -1,10 +1,11 @@
-require 'rubygems'
+require 'rspec'
 require 'mocha'
 require 'builder'
-require 'pivotal'
+require 'lib/git-pivotal'
+
 require File.join(File.dirname(__FILE__), 'factories')
 
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
   config.mock_with :mocha
 end
 

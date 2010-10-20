@@ -1,4 +1,3 @@
-require 'commands/feature'
 require 'spec_helper'
 
 describe Commands::Feature do

@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'commands/base'
 
 describe Commands::Base do
   
