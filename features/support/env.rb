@@ -1,5 +1,3 @@
 require 'rubygems'
+require 'git-pivotal'
 require 'pivotal-tracker'
-
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', '..', 'lib')
-require 'commands'
