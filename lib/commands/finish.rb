@@ -38,13 +38,12 @@ module Commands
       end
     end
 
-    # FIXME: clunky way to get branch name... need better method
     def current_branch
-      @current_branch ||= get('git status | head -1').gsub(/^.+On branch /, '').chomp
+      @current_branch ||= get('git symbolic-ref HEAD').chomp.split('/').last
     end
 
     def story_id
-      current_branch[/\d+/]
+      current_branch[/\d+/].to_i
     end
 
     def story
