@@ -22,7 +22,7 @@ module Commands
 
     def sys(cmd)
       put cmd if options[:verbose]
-      system cmd
+      system "#{cmd} > /dev/null 2>&1"
     end
 
     def get(cmd)
@@ -35,7 +35,10 @@ module Commands
         put "Pivotal Tracker API Token and Project ID are required"
         return 1
       end
+      
       PivotalTracker::Client.token = options[:api_token]
+      
+      return 0
     end
 
   protected
@@ -72,6 +75,7 @@ module Commands
         opts.on("-n", "--full-name=", "Pivotal Trakcer full name") { |n| options[:full_name] = n }
         opts.on("-b", "--integration-branch=", "The branch to merge finished stories back down onto") { |b| options[:integration_branch] = b }
         opts.on("-m", "--only-mine", "Only select Pivotal Tracker stories assigned to you") { |m| options[:only_mine] = m }
+        opts.on("-D", "--defaults", "Accept default options. No-interaction mode") { |d| options[:defaults] = d }
         opts.on("-q", "--quiet", "Quiet, no-interaction mode") { |q| options[:quiet] = q }
         opts.on("-v", "--[no-]verbose", "Run verbosely") { |v| options[:verbose] = v }
         opts.on_tail("-h", "--help", "This usage guide") { put opts.to_s; exit 0 }

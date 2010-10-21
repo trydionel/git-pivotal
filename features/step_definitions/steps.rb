@@ -1,3 +1,6 @@
+PIVOTAL_TEST_PROJECT = 52815
+PIVOTAL_TEST_ID = 5799841
+
 Given /^I have a Pivotal Tracker ([^\"]*)$/ do |type|
   create_story(type)
 end
@@ -21,9 +24,13 @@ end
 
 def create_story(type)
   PivotalTracker::Client.token = "10bfe281783e2bdc2d6592c0ea21e8d5"
-  project = PivotalTracker::Project.find(52815)
+  project = PivotalTracker::Project.find(PIVOTAL_TEST_PROJECT)
+  @story  = project.stories.find(PIVOTAL_TEST_ID)
   
-  @story = project.stories.create(:name => "Test Story", :story_type => type.to_s)
+  @story.update(:story_type    => type.to_s,
+                :current_state => "unstarted",
+                :estimate      => (type.to_s == "feature" ? 1 : nil))
+  sleep(3) # let the data propogate
 end
 
 def execute_method(method, args = [])
