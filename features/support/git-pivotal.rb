@@ -1,13 +1,11 @@
 require 'fileutils'
-require 'mocha'
 
 Before do
-  @output_buffer = StringIO.new
   build_temp_paths
   set_env_variables
 end
 
-def build_temp_paths(allow_config = true)
+def build_temp_paths
   _mkdir(current_dir)
 
   test_repo = File.expand_path(File.join(File.dirname(__FILE__), '..', 'test_repo'))
