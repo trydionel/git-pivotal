@@ -32,7 +32,7 @@ module Commands
 
     # FIXME: clunky way to get branch name... need better method
     def current_branch
-      @current_branch ||= get('git branch | grep "^\*"').gsub(/^* /, '').chomp
+      @current_branch ||= get('git branch | grep "^\*"').gsub(/^\* /, '').chomp
     end
 
     def story_id
