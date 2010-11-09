@@ -35,12 +35,11 @@ module Commands
       put "Updating #{type} status in Pivotal Tracker..."
       if story.start!(:owned_by => options[:full_name])
     
-        suffix = branch_suffix
         unless options[:quiet]
-          put "Enter branch name (will be prepended by #{story.id}) [#{suffix}]: ", false
+          put "Enter branch name (will be prepended by #{story.id}) [#{branch_suffix}]: ", false
           suffix = input.gets.chomp
-      
-          suffix = "feature" if suffix == ""
+
+          suffix = branch_suffix if suffix == ""
         end
 
         branch = "#{story.id}-#{suffix}"
