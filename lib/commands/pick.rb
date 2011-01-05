@@ -34,7 +34,7 @@ module Commands
       put "URL:   #{story.url}"
 
       put "Updating #{type} status in Pivotal Tracker..."
-      if story.update(:owned_by => options[:full_name])
+      if story.update(:owned_by => options[:full_name], :current_state => :started)
 
         suffix_or_prefix = ""
         unless options[:quiet] || options[:defaults]
