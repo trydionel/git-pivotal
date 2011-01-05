@@ -100,4 +100,24 @@ describe Commands::Base do
     @pick.run!    
   end
   
+  it "should set the append name flag with the -a option" do
+    @pick = Commands::Base.new(@input, @output,"-a")
+    @pick.options[:append_name].should be_true
+  end
+
+  it "should set the append name flag from git config" do
+    Commands::Base.any_instance.stubs(:get).with("git config --get pivotal.append-name").returns("true")
+    @pick = Commands::Base.new
+    @pick.options[:append_name].should be_true
+  end
+
+  it "should set the append name flag with the --append-name" do
+    @pick = Commands::Base.new(@input, @output, "--append-name")
+    @pick.options[:append_name].should be_true
+  end
+
+  it "should default the append name flag if none is specified" do
+    @pick = Commands::Base.new
+    @pick.options[:append_name].should be_false
+  end
 end

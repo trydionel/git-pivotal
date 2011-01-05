@@ -50,6 +50,10 @@ The project id is best placed within your project's git config:
 
     git config -f .git/config pivotal.project-id 88888
 
+If you would rather have the story id appended to the branch name (feature-123456) instead of prepending (123456-feature), you can configue that:
+
+    git config -f .git/config pivotal.append-name true
+
 If you're not interested in storing these options in git, you can pass them into git pivotal as command line arguments.  See the usage guides for more details.
 
 ##TODO
