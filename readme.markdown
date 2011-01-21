@@ -27,6 +27,15 @@ When on a feature branch, this command will close the associated story in Pivota
     Removing 1234567-testing branch
     4 git-pivotal:master %
 
+###Git Pivotinfo
+When on a feature/bug/chore branch, this command will display the story information
+
+    5 git-pivotal:1234567-testing % git pivotinfo
+    Story:        Test git pivotal
+    URL:          http://www.pivotaltracker.com/story/show/1234567
+    Description:  The awesome story description
+    6 git-pivotal:1234567-testing % 
+
 ##Installation
 To install git-pivotal, simply run
 
