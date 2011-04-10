@@ -1,11 +1,11 @@
 require 'commands/base'
 
 module Commands
-  class Pivotinfo < Base
-  
+  class Info < Base
+
     def run!
       super
-      
+
       unless story_id
         put "Branch name must contain a Pivotal Tracker story id"
         return 1
@@ -19,7 +19,7 @@ module Commands
     end
 
   protected
-  
+
     def current_branch
       @current_branch ||= get('git symbolic-ref HEAD').chomp.split('/').last
     end

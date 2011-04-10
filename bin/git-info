@@ -2,6 +2,6 @@
 
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
-require 'commands/pivotinfo'
+require 'commands/info'
 
-exit Commands::Pivotinfo.new(STDIN, STDOUT, *ARGV).run!
+exit Commands::Info.new(STDIN, STDOUT, *ARGV).run!
