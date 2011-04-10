@@ -6,16 +6,16 @@ module Commands
   class Base
 
     attr_accessor :input, :output, :options
-  
+
     def initialize(input=STDIN, output=STDOUT, *args)
       @input = input
       @output = output
       @options = {}
-      
+
       parse_gitconfig
       parse_argv(*args)
     end
-  
+
     def put(string, newline=true)
       @output.print(newline ? string + "\n" : string) unless options[:quiet]
     end
@@ -29,19 +29,23 @@ module Commands
       put cmd if options[:verbose]
       `#{cmd}`
     end
-    
+
     def run!
       unless options[:api_token] && options[:project_id]
         put "Pivotal Tracker API Token and Project ID are required"
         return 1
       end
-      
+
       PivotalTracker::Client.token = options[:api_token]
-      
+
       return 0
     end
 
   protected
+
+    def current_branch
+      @current_branch ||= get('git symbolic-ref HEAD').chomp.split('/').last
+    end
 
     def project
       @project ||= PivotalTracker::Project.find(options[:project_id])

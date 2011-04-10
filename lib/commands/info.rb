@@ -20,10 +20,6 @@ module Commands
 
   protected
 
-    def current_branch
-      @current_branch ||= get('git symbolic-ref HEAD').chomp.split('/').last
-    end
-
     def story_id
       current_branch[/\d+/].to_i
     end
