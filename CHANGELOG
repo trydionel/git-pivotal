@@ -1,3 +1,11 @@
+v 0.8.0
+- Drop home-rolled PivotalTracker API for pivotal-tracker gem
+- Add Gemfile for easier development
+- Add better test suite with Cucumber and Aruba
+- Add option for appending the branch name (rather than prepending) [Addy
+Naik]
+- Add new `git info` command [Addy Naik]
+
 v 0.2.3
 - Allow the developer to specify the integration branch for git finish [Graeme Mathieson]
 - Fixed bug which prevented chores from finishing successfully [Joshua Vial]
