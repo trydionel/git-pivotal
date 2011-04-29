@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+require 'commands/story'
+
+exit Commands::Story.new(STDIN, STDOUT, *ARGV).run!

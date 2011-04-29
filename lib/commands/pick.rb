@@ -3,6 +3,8 @@ require 'commands/base'
 module Commands
   class Pick < Base
 
+    attr_accessor :story
+
     def type
       raise Error("must define in subclass")
     end
