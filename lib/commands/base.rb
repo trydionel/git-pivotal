@@ -10,7 +10,7 @@ module Commands
     def initialize(input=STDIN, output=STDOUT, *args)
       @input = input
       @output = output
-      @options = {}
+      @options = args.last.is_a?(Hash) ? args.pop : {}
 
       parse_gitconfig
       parse_argv(*args)

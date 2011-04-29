@@ -1,4 +1,3 @@
-@wip
 Feature: git story
 
   Scenario: Executing with no settings

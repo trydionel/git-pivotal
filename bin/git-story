@@ -2,6 +2,6 @@
 
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
-require 'commands/story'
+require 'git-pivotal'
 
 exit Commands::Story.new(STDIN, STDOUT, *ARGV).run!
