@@ -39,7 +39,7 @@ module Commands
     end
 
     def story_id
-      current_branch[/\d+/].to_i
+      match = current_branch[/\d+/] && match.to_i
     end
 
     def story

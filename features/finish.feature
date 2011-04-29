@@ -21,7 +21,7 @@ Feature: git finish
       Removing 5799841-feature branch
       """
     And I should be on the "master" branch
-  
+
   Scenario: Executing with git configuration
     Given a file named ".gitconfig" with:
       """
@@ -38,7 +38,16 @@ Feature: git finish
       Removing 5799841-feature branch
       """
     And I should be on the "master" branch
-  
+
+  Scenario: Executing from a misnamed branch
+    Given I am on the "missing-an-id" branch
+    When I run "git-finish -k 10bfe281783e2bdc2d6592c0ea21e8d5 -p 52815"
+    Then the output should contain:
+      """
+      Branch name must contain a Pivotal Tracker story id
+      """
+    And the exit status should be 1
+
   Scenario: Specifying an integration branch
     Given I have a "develop" branch
     And a file named ".gitconfig" with:
