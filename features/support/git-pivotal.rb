@@ -5,6 +5,7 @@ PIVOTAL_TEST_PROJECT = 52815
 PIVOTAL_TEST_ID = 5799841
 
 Before do
+  @aruba_timeout_seconds = 5
   build_temp_paths
   set_env_variables
 end
@@ -35,7 +36,7 @@ def update_test_story(type, status = nil)
   PivotalTracker::Client.token = PIVOTAL_API_KEY
   project = PivotalTracker::Project.find(PIVOTAL_TEST_PROJECT)
   story   = project.stories.find(PIVOTAL_TEST_ID)
-  
+
   story.update(:story_type    => type.to_s,
                :current_state => status || "unstarted",
                :estimate      => (type.to_s == "feature" ? 1 : nil))
