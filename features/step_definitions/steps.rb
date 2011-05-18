@@ -2,7 +2,13 @@ STORY_TYPE = /feature|bug|chore|release/
 STORY_STATE = /unscheduled|unstarted|started|finished|delivered|accepted|rejected/
 
 Given /^I have a(?:n)? (#{STORY_STATE})?\s?Pivotal Tracker (#{STORY_TYPE})$/ do |status, type|
-  update_test_story(type, status)
+  options = {}
+  options[:current_state] = status if status
+  update_test_story(type, options)
+end
+
+Given /the feature is unestimated/ do
+  update_test_story('feature', :estimate => -1)
 end
 
 Given /^I am on the "([^"]*)" branch$/ do |branch|

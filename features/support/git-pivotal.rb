@@ -13,7 +13,7 @@ end
 at_exit do
   # The features seem to have trouble repeating accurately without
   # setting the test story to an unstarted feature for the next run.
-  update_test_story("feature", "unstarted")
+  update_test_story("feature", :current_state => "unstarted")
 end
 
 def build_temp_paths
@@ -32,14 +32,16 @@ def set_env_variables
   set_env "HOME", File.expand_path(current_dir)
 end
 
-def update_test_story(type, status = nil)
+def update_test_story(type, options = {})
   PivotalTracker::Client.token = PIVOTAL_API_KEY
   project = PivotalTracker::Project.find(PIVOTAL_TEST_PROJECT)
   story   = project.stories.find(PIVOTAL_TEST_ID)
 
-  story.update(:story_type    => type.to_s,
-               :current_state => status || "unstarted",
-               :estimate      => (type.to_s == "feature" ? 1 : nil))
+  story.update({
+    :story_type    => type.to_s,
+    :current_state => "unstarted",
+    :estimate      => (type.to_s == "feature" ? 1 : nil)
+  }.merge(options))
   sleep(4) # let the data propagate
 end
 

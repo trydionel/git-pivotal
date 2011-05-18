@@ -36,8 +36,9 @@ module Commands
       put "URL:   #{story.url}"
 
       put "Updating #{type} status in Pivotal Tracker..."
-      if story.update(:owned_by => options[:full_name], :current_state => :started)
+      story.update(:owned_by => options[:full_name], :current_state => :started)
 
+      if story.errors.empty?
         suffix_or_prefix = ""
         unless options[:quiet] || options[:defaults]
           put "Enter branch name (will be #{options[:append_name] ? 'appended' : 'prepended'} by #{story.id}) [#{suffix_or_prefix}]: ", false
@@ -58,6 +59,7 @@ module Commands
         return 0
       else
         put "Unable to mark #{type} as started"
+        put "\t" + story.errors.to_a.join("\n\t")
 
         return 1
       end

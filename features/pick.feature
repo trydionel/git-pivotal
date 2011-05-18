@@ -1,4 +1,3 @@
-@wip
 Feature: General Git Pivotal story-picking features
 
   Background:
