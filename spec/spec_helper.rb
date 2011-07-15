@@ -1,7 +1,9 @@
 require 'rspec'
 require 'mocha'
 require 'builder'
-require 'lib/git-pivotal'
+
+specdir = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+require File.join(specdir, 'lib','git-pivotal')
 
 require File.join(File.dirname(__FILE__), 'factories')
 
