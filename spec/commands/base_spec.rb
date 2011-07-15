@@ -120,4 +120,32 @@ describe Commands::Base do
     @pick = Commands::Base.new
     @pick.options[:append_name].should be_false
   end
+
+  it "should set use_ssl to true with --use-ssl" do
+    @pick = Commands::Base.new(@input, @output, "--use-ssl")
+    @pick.options[:use_ssl].should be_true
+  end
+
+  it "should set use_ssl to true with -S" do
+    @pick = Commands::Base.new(@input, @output, "-S")
+    @pick.options[:use_ssl].should be_true
+  end
+
+  it "should set use_ssl to false by default" do
+    @pick = Commands::Base.new(@input, @output, "")
+    @pick.options[:use_ssl].should be_false
+  end
+
+  it "should respect use_ssl from git config if it's set true (case insensitive)" do
+    Commands::Base.any_instance.stubs(:get).with("git config --get pivotal.use-ssl").returns("truE")
+    @pick = Commands::Base.new
+    @pick.options[:use_ssl].should be_true
+  end
+
+  it "should respect use_ssl from git config if it's set to anything but true" do
+    Commands::Base.any_instance.stubs(:get).with("git config --get pivotal.use-ssl").returns("not true")
+    @pick = Commands::Base.new
+    @pick.options[:use_ssl].should be_false
+  end
+
 end
