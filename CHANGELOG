@@ -1,3 +1,8 @@
+v 0.8.1
+- Improve error reporting when interacting with PivotalTracker
+- Add SSL project support [bunnymatic (Mr Rogers)]
+- Improve method of collecting story ID from branch name
+
 v 0.8.0
 - Drop home-rolled PivotalTracker API for pivotal-tracker gem
 - Add Gemfile for easier development
