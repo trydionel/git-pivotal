@@ -2,36 +2,28 @@ require 'spec_helper'
 
 describe Commands::Finish do
 
-  def mock_projects
-    if @mock_projects.nil?
-      @mock_projects = mock("mock project list")
-      @mock_projects.stubs(:find).with(:id => mock_project_id).returns(mock_project)
-    end
-    @mock_projects
-  end
-
   def mock_project_id
     @mock_project_id ||= '4321'
   end
 
-  def mock_project
-    if @mock_project.nil?
-      @mock_project = mock("mock project")
-      @mock_project.stubs(:stories).returns(mock_stories)
+  def mock_projects
+    if @mock_projects.nil?
+      @mock_projects = mock("mock project")
+      @mock_projects.stubs(:stories).returns(mock_stories)
     end
-    @mock_project
+    @mock_projects
   end
 
   def mock_stories
     if @mock_stories.nil?
       @mock_stories = mock("mock story list")
-      @mock_stories.stubs(:find).with(:id => mock_story_id).returns(mock_story)
+      @mock_stories.stubs(:find).with(mock_story_id).returns(mock_story)
     end
     @mock_stories
   end
 
   def mock_story_id
-    @mock_story_id ||= '1234'
+    @mock_story_id ||= 1234
   end
 
   def mock_story
@@ -39,6 +31,10 @@ describe Commands::Finish do
       @mock_story = mock("mock story")
     end
     @mock_story
+  end
+
+  def branch_name
+    "#{mock_story_id}-feature-branch-name"
   end
 
   before(:each) do
@@ -57,6 +53,7 @@ describe Commands::Finish do
       # stub out git status request to identify the branch
       branch_name = "invalid-branch-name-without-story-id"
       Commands::Finish.any_instance.stubs(:get).with { |v| v =~ /git status/ }.returns("# On branch #{branch_name}")
+      Commands::Finish.any_instance.stubs(:get).with { |v| v == "git symbolic-ref HEAD" }.returns(branch_name)
     end
 
     it "should return an exit status of one" do
@@ -70,25 +67,23 @@ describe Commands::Finish do
   end
 
   context "where the branch name does contain a valid story id" do
-    def branch_name
-      "#{mock_story_id}-feature-branch-name"
-    end
 
     before(:each) do
       # stub out git status request to identify the branch
       Commands::Finish.any_instance.stubs(:get).with { |v| v =~ /git status/ }.returns("# On branch #{branch_name}")
+      Commands::Finish.any_instance.stubs(:get).with { |v| v == "git symbolic-ref HEAD" }.returns(branch_name)
     end
 
     it "should attempt to update the story status to the stories finished_state" do
-      mock_story.stubs(:finished_state).returns(:finished)
-      mock_story.expects(:update_attributes).with(:current_state => :finished)
+      mock_story.stubs(:story_type).returns("finished")
+      mock_story.expects(:update).with(:current_state => "finished")
       @finish.run!
     end
 
     context "and the story is successfully marked as finished in PT" do
       before(:each) do
-        mock_story.stubs(:finished_state).returns(:finished)
-        mock_story.stubs(:update_attributes).with(:current_state => :finished).returns(true)
+        mock_story.stubs(:story_type).returns("finished")
+        mock_story.stubs(:update).with(:current_state => "finished").returns(true)
       end
 
       it "should succeed with an exist status of zero" do
@@ -113,8 +108,8 @@ describe Commands::Finish do
 
     context "and the story fails to be marked as finished in PT" do
       before(:each) do
-        mock_story.stubs(:finished_state).returns(:finished)
-        mock_story.stubs(:update_attributes).with(:current_state => :finished).returns(false)
+        mock_story.stubs(:story_type).returns("finished")
+        mock_story.stubs(:update).with(:current_state => "finished").returns(false)
       end
 
       it "should fail with an exist status of one" do
