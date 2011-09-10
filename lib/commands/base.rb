@@ -63,6 +63,7 @@ module Commands
       id                 = get("git config --get pivotal.project-id").strip
       name               = get("git config --get pivotal.full-name").strip
       integration_branch = get("git config --get pivotal.integration-branch").strip
+      parent_branch      = get("git config --get pivotal.parent-branch").strip          # git config --global pivotal.parent-branch origin/master
       only_mine          = get("git config --get pivotal.only-mine").strip
       append_name        = get("git config --get pivotal.append-name").strip
       use_ssl            = get("git config --get pivotal.use-ssl").strip
@@ -73,6 +74,7 @@ module Commands
       options[:project_id]         = id                 unless id == ""
       options[:full_name]          = name               unless name == ""
       options[:integration_branch] = integration_branch unless integration_branch == ""
+      options[:parent_branch]      = parent_branch      unless parent_branch == ""
       options[:only_mine]          = (only_mine != "")  unless name == ""
       options[:upcoming]           = upcoming.to_i           unless upcoming == ""
       options[:upcoming_with_desc] = upcoming_with_desc.to_i unless upcoming_with_desc == ""
