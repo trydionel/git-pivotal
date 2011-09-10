@@ -66,12 +66,16 @@ module Commands
       only_mine          = get("git config --get pivotal.only-mine").strip
       append_name        = get("git config --get pivotal.append-name").strip
       use_ssl            = get("git config --get pivotal.use-ssl").strip
+      upcoming           = get("git config --get --int pivotal.upcoming").strip
+      upcoming_with_desc = get("git config --get --int pivotal.upcoming-with-desc").strip
 
       options[:api_token]          = token              unless token == ""
       options[:project_id]         = id                 unless id == ""
       options[:full_name]          = name               unless name == ""
       options[:integration_branch] = integration_branch unless integration_branch == ""
       options[:only_mine]          = (only_mine != "")  unless name == ""
+      options[:upcoming]           = upcoming.to_i           unless upcoming == ""
+      options[:upcoming_with_desc] = upcoming_with_desc.to_i unless upcoming_with_desc == ""
       options[:append_name]        = (append_name != "")
       options[:use_ssl] = (/^true$/i.match(use_ssl))
     end
@@ -89,6 +93,9 @@ module Commands
         opts.on("-D", "--defaults", "Accept default options. No-interaction mode") { |d| options[:defaults] = d }
         opts.on("-q", "--quiet", "Quiet, no-interaction mode") { |q| options[:quiet] = q }
         opts.on("-v", "--[no-]verbose", "Run verbosely") { |v| options[:verbose] = v }
+        opts.banner = "Usage: git info [options]"
+        opts.on("-u", "--upcoming-stories=", "Show upcoming stories (number of the stories to be shown) for instance -u10") { |u| options[:upcoming] = u.to_i }
+        opts.on("-d", "--upcoming-stories-with-description=", "Show upcoming stories (number of the stories to be shown) with description") { |d| options[:upcoming_with_desc] = d.to_i }
         opts.on_tail("-h", "--help", "This usage guide") { put opts.to_s; exit 0 }
       end.parse!(args)
     end
