@@ -6,14 +6,13 @@ module Commands
     def run!
       super
 
-      unless story_id
+      if story_id == 0
         put "Branch name must contain a Pivotal Tracker story id"
-        return 1
+      else
+        put "Story:         #{story.name}"
+        put "URL:           #{story.url}"
+        put "Description:   #{story.description}"
       end
-
-      put "Story:         #{story.name}"
-      put "URL:           #{story.url}"
-      put "Description:   #{story.description}"
 
       fetched_stories = stories
 
@@ -29,7 +28,7 @@ module Commands
         end
       end
 
-      return 0
+      return story_id == 0 ? 1:0
     end
 
   protected
