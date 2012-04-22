@@ -10,6 +10,11 @@ module Commands
         put "Branch name must contain a Pivotal Tracker story id"
         return 1
       end
+      
+      unless story_id > 0
+        put "Branch name must contain a Pivotal Tracker story id"
+        return 1
+      end
 
       put "Story:         #{story.name}"
       put "URL:           #{story.url}"
