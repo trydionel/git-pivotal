@@ -37,6 +37,10 @@ describe Commands::Finish do
     "#{mock_story_id}-feature-branch-name"
   end
 
+  def integration_branch_name
+    "master"
+  end
+
   before(:each) do
     # stub out git config requests
     Commands::Finish.any_instance.stubs(:get).with { |v| v =~ /git config/ }.returns("")
@@ -91,12 +95,12 @@ describe Commands::Finish do
       end
 
       it "should checkout the developer's integration branch" do
-        @finish.expects(:sys).with("git checkout master")
+        @finish.expects(:sys).with("git checkout #{integration_branch_name}")
         @finish.run!
       end
 
       it "should merge in the story branch" do
-        @finish.expects(:sys).with("git merge --no-ff #{branch_name}")
+        @finish.expects(:sys).with("git merge --no-ff -m \"[##{mock_story_id}] Merge branch '#{branch_name}' into #{integration_branch_name}\" #{branch_name}")
         @finish.run!
       end
 

@@ -15,7 +15,7 @@ module Commands
       if story.update(:current_state => finished_state)
         put "Merging #{current_branch} into #{integration_branch}"
         sys "git checkout #{integration_branch}"
-        sys "git merge --no-ff #{current_branch}"
+        sys "git merge --no-ff -m \"[##{story_id}] Merge branch '#{current_branch}' into #{integration_branch}\" #{current_branch}"
 
         put "Removing #{current_branch} branch"
         sys "git branch -d #{current_branch}"
