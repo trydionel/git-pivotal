@@ -1,7 +1,7 @@
 #Git Pivotal
 
 ##Prelude
-Under no cicrumstances should you have [this song](http://www.dailymotion.com/video/x9vzh0_olivia-newton-john-lets-get-physica_music) running in the background while you read this.
+Under no circumstances should you have [this song](http://www.dailymotion.com/video/x9vzh0_olivia-newton-john-lets-get-physica_music) running in the background while you read this.
 
 ##Let's Git Pivotal
 Inspired by [Hashrocket's blend of git and Pivotal Tracker](http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html) and [a popular article on effective git workflows](http://nvie.com/archives/323), I set off to create a set of utilities to simplify the workflow between the two.
