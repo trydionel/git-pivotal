@@ -63,14 +63,23 @@ module Commands
       end
     end
 
-  protected
+    protected
 
     def story
       return @story if @story
 
-      conditions = { :story_type => type, :current_state => "unstarted", :limit => 1, :offset => 0 }
-      conditions[:owned_by] = options[:full_name] if options[:only_mine]
-      @story = project.stories.all(conditions).first
+      @story = if options[:story_id]
+                 project.stories.find options[:story_id]
+               else
+                 conditions = {
+                   :story_type => type,
+                   :current_state => "unstarted",
+                   :limit => 1,
+                   :offset => 0
+                 }
+                 conditions[:owned_by] = options[:full_name] if options[:only_mine]
+                 project.stories.all(conditions).first
+               end
     end
   end
 end
