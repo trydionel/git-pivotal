@@ -13,7 +13,11 @@ module Commands
       @options = {}
 
       parse_gitconfig
-      parse_argv(*args)
+      remaining = parse_argv(*args)
+
+      if remaining.one?
+        @options[:story_id] = remaining.first
+      end
     end
 
     def put(string, newline=true)
@@ -78,7 +82,7 @@ module Commands
 
     def parse_argv(*args)
       OptionParser.new do |opts|
-        opts.banner = "Usage: git pick [options]"
+        opts.banner = "Usage: git pick [options] [story_id]"
         opts.on("-k", "--api-key=", "Pivotal Tracker API key") { |k| options[:api_token] = k }
         opts.on("-p", "--project-id=", "Pivotal Trakcer project id") { |p| options[:project_id] = p }
         opts.on("-n", "--full-name=", "Pivotal Trakcer full name") { |n| options[:full_name] = n }

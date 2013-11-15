@@ -148,4 +148,14 @@ describe Commands::Base do
     @pick.options[:use_ssl].should be_false
   end
 
+	it "should look up the specific story (by id) if it is given" do
+		@pick = Commands::Base.new(@input, @output, "54321")
+		@pick.options[:story_id].should == "54321"
+	end
+
+	it "should default to no story id" do
+		@pick = Commands::Base.new(@input, @output, "")
+		@pick.options[:story_id].should be_null
+	end
+
 end
