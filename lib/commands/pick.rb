@@ -50,8 +50,8 @@ module Commands
           branch = "#{story.id}-#{suffix_or_prefix}"
         end
         if get("git branch").match(branch).nil?
+          sys "git checkout -b #{branch} #{options[:parent_branch]}"
           put "Switched to a new branch '#{branch}'"
-          sys "git checkout -b #{branch}"
         end
 
         return 0
